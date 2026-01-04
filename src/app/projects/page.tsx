@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Projects | Simeon Udoh",
@@ -12,6 +13,14 @@ interface Project {
   description: string;
   status: ProjectStatus;
   featured?: boolean;
+}
+
+interface PastProject {
+  name: string;
+  description: string;
+  tech: string;
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 const projects: Project[] = [
@@ -45,6 +54,42 @@ const projects: Project[] = [
     description:
       "A lightweight blog system using markdown files. Good practice for file-based content and static generation.",
     status: "archived",
+  },
+];
+
+const pastProjects: PastProject[] = [
+  {
+    name: "CalIT",
+    description: "A calculator web app. One of my first JavaScript projects.",
+    tech: "HTML, CSS, JavaScript",
+    liveUrl: "https://calculatorjs-app.netlify.app/",
+    githubUrl: "https://github.com/simeon4real/Calculator",
+  },
+  {
+    name: "JQuizy",
+    description: "A fun quiz app to test JavaScript knowledge.",
+    tech: "HTML, CSS, JavaScript",
+    liveUrl: "https://javascript-quiz-game.netlify.app/",
+    githubUrl: "https://github.com/simeon4real/Javascript-quiz",
+  },
+  {
+    name: "Portfolio v2",
+    description: "My previous portfolio site. Built when I was learning Vue.",
+    tech: "Vue, Tailwind CSS, Sass",
+    liveUrl: "https://simicodev2.netlify.app/",
+    githubUrl: "https://github.com/simeon4real/my-website",
+  },
+  {
+    name: "Shortly",
+    description: "An API-based URL shortener.",
+    tech: "Vue, Sass, REST API",
+    githubUrl: "https://github.com/simeon4real/Shortly",
+  },
+  {
+    name: "WeBlog",
+    description: "An API-based blog site with routing.",
+    tech: "Vue, Tailwind CSS, Vue Router",
+    githubUrl: "https://github.com/simeon4real/WeBlog",
   },
 ];
 
@@ -153,6 +198,60 @@ export default function Projects() {
                 <p className="text-neutral-500 text-sm leading-relaxed">
                   {project.description}
                 </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Past Projects */}
+      <section className="px-6 md:px-8 py-12 md:py-16">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="font-heading text-sm font-semibold text-neutral-400 uppercase tracking-wide mb-2">
+            Past Projects
+          </h2>
+          <p className="text-neutral-500 text-sm mb-6">
+            Earlier work from when I was learning frontend development.
+          </p>
+          <div className="space-y-3">
+            {pastProjects.map((project) => (
+              <article
+                key={project.name}
+                className="group flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-4 border-b border-neutral-100 last:border-0"
+              >
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-heading text-base tracking-tight text-neutral-900 mb-1">
+                    {project.name}
+                  </h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed mb-1">
+                    {project.description}
+                  </p>
+                  <p className="text-neutral-400 text-xs">
+                    {project.tech}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  {project.liveUrl && (
+                    <Link
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-neutral-500 hover:text-accent-600 transition-colors"
+                    >
+                      Live
+                    </Link>
+                  )}
+                  {project.githubUrl && (
+                    <Link
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-neutral-500 hover:text-neutral-900 transition-colors"
+                    >
+                      GitHub
+                    </Link>
+                  )}
+                </div>
               </article>
             ))}
           </div>
