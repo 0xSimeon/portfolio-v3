@@ -28,7 +28,7 @@ export default function Home() {
 
         {/* Exploring Section - Carded */}
         <section className="mb-20">
-          <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-8">
+          <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-8 hover:border-neutral-300 hover:shadow-sm transition-all">
             <h2 className="font-heading text-2xl font-bold text-neutral-900 mb-5">
               What I'm Exploring
             </h2>
@@ -52,7 +52,7 @@ export default function Home() {
 
         {/* Newsletter Section */}
         <section>
-          <div className="border border-neutral-200 rounded-xl p-8">
+          <div className="border border-neutral-200 rounded-xl p-8 hover:border-neutral-300 hover:shadow-sm transition-all">
             <h2 className="font-heading text-2xl font-bold text-neutral-900 mb-2">
               Join my weekly notes
             </h2>

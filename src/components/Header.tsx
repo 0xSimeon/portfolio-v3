@@ -13,8 +13,8 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="py-6 px-6 md:px-8">
-      <nav className="max-w-3xl mx-auto flex items-center justify-between">
+    <header className="sticky top-0 z-50 py-6 px-6 md:px-8 bg-white/80 backdrop-blur-md border-b border-transparent hover:border-neutral-100 transition-colors">
+      <nav className="max-w-2xl mx-auto flex items-center justify-between">
         <Link
           href="/"
           className="font-heading text-lg font-bold text-neutral-900 hover:text-neutral-600 transition-colors"

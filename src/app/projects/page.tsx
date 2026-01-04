@@ -75,7 +75,7 @@ export default function Projects() {
           {projects.map((project) => (
             <article
               key={project.name}
-              className="border border-neutral-200 rounded-xl p-6"
+              className="border border-neutral-200 rounded-xl p-6 hover:border-neutral-300 hover:shadow-sm transition-all"
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                 <h2 className="font-heading text-xl font-bold text-neutral-900">
