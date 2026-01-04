@@ -17,3 +17,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-cabinet);
   font-weight: 800;
 }
+
+/* Custom selection color */
+::selection {
+  background-color: rgba(14, 165, 233, 0.2);
+  color: inherit;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

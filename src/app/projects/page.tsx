@@ -11,6 +11,7 @@ interface Project {
   name: string;
   description: string;
   status: ProjectStatus;
+  featured?: boolean;
 }
 
 const projects: Project[] = [
@@ -19,6 +20,7 @@ const projects: Project[] = [
     description:
       "This website. A minimal personal site built with Next.js and Tailwind CSS. Focused on clean design and good defaults.",
     status: "ongoing",
+    featured: true,
   },
   {
     name: "DeFi Dashboard",
@@ -46,56 +48,116 @@ const projects: Project[] = [
   },
 ];
 
-const statusStyles: Record<ProjectStatus, string> = {
-  experiment: "bg-accent-50 text-accent-700",
-  ongoing: "bg-green-50 text-green-700",
-  archived: "bg-neutral-100 text-neutral-600",
+const statusConfig: Record<ProjectStatus, { bg: string; text: string; dot: string }> = {
+  ongoing: {
+    bg: "bg-green-50",
+    text: "text-green-700",
+    dot: "bg-green-500",
+  },
+  experiment: {
+    bg: "bg-accent-50",
+    text: "text-accent-700",
+    dot: "bg-accent-500",
+  },
+  archived: {
+    bg: "bg-neutral-100",
+    text: "text-neutral-500",
+    dot: "bg-neutral-400",
+  },
 };
 
 const statusLabels: Record<ProjectStatus, string> = {
   experiment: "Experiment",
-  ongoing: "Ongoing",
+  ongoing: "Active",
   archived: "Archived",
 };
 
 export default function Projects() {
-  return (
-    <div className="px-6 md:px-8 py-16 md:py-24">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="font-heading text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-          Projects
-        </h1>
-        <p className="text-lg text-neutral-600 mb-12 max-w-lg">
-          A collection of practice projects and experiments. Some are ongoing,
-          some are just ideas I explored, and some have been archived. The goal
-          is always learning.
-        </p>
+  const featuredProjects = projects.filter((p) => p.featured);
+  const otherProjects = projects.filter((p) => !p.featured);
 
-        <div className="space-y-5">
-          {projects.map((project) => (
-            <article
-              key={project.name}
-              className="border border-neutral-200 rounded-xl p-6 hover:border-neutral-300 hover:shadow-sm transition-all"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-                <h2 className="font-heading text-xl font-bold text-neutral-900">
-                  {project.name}
-                </h2>
-                <span
-                  className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
-                    statusStyles[project.status]
-                  }`}
-                >
-                  {statusLabels[project.status]}
-                </span>
-              </div>
-              <p className="text-neutral-600 leading-relaxed">
-                {project.description}
-              </p>
-            </article>
-          ))}
+  return (
+    <div>
+      {/* Header */}
+      <section className="px-6 md:px-8 pt-12 md:pt-20 pb-16 md:pb-20">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="font-heading text-4xl md:text-5xl tracking-tight text-neutral-900 mb-4">
+            Projects
+          </h1>
+          <p className="text-lg text-neutral-500 max-w-lg">
+            A collection of practice projects and experiments. Some are ongoing,
+            some are just ideas I explored, and some have been archived.
+          </p>
         </div>
-      </div>
+      </section>
+
+      {/* Featured Project */}
+      {featuredProjects.length > 0 && (
+        <section className="px-6 md:px-8 pb-12">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="font-heading text-sm font-semibold text-neutral-400 uppercase tracking-wide mb-4">
+              Featured
+            </h2>
+            {featuredProjects.map((project) => (
+              <article
+                key={project.name}
+                className="relative rounded-2xl bg-gradient-to-br from-neutral-50 to-neutral-100/50 border border-neutral-200 p-6 md:p-8"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                  <h3 className="font-heading text-xl md:text-2xl tracking-tight text-neutral-900">
+                    {project.name}
+                  </h3>
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full ${
+                      statusConfig[project.status].bg
+                    } ${statusConfig[project.status].text}`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${statusConfig[project.status].dot}`} />
+                    {statusLabels[project.status]}
+                  </span>
+                </div>
+                <p className="text-neutral-600 leading-relaxed">
+                  {project.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Other Projects */}
+      <section className="px-6 md:px-8 py-12 md:py-16 bg-neutral-50/50">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="font-heading text-sm font-semibold text-neutral-400 uppercase tracking-wide mb-6">
+            All Projects
+          </h2>
+          <div className="space-y-4">
+            {otherProjects.map((project) => (
+              <article
+                key={project.name}
+                className="group bg-white rounded-xl border border-neutral-200 p-5 hover:border-neutral-300 hover:shadow-sm transition-all"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                  <h3 className="font-heading text-lg tracking-tight text-neutral-900 group-hover:text-neutral-700 transition-colors">
+                    {project.name}
+                  </h3>
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full ${
+                      statusConfig[project.status].bg
+                    } ${statusConfig[project.status].text}`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${statusConfig[project.status].dot}`} />
+                    {statusLabels[project.status]}
+                  </span>
+                </div>
+                <p className="text-neutral-500 text-sm leading-relaxed">
+                  {project.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
